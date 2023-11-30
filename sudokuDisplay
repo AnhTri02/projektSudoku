@@ -1,0 +1,51 @@
+package sukodu;
+
+import java.io.*;
+import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.Container.*;
+import java.math.*;
+
+public class sudokuDisplay {
+	
+	private sudokuSolver solver;
+	
+	public sudokuDisplay() {
+		
+	this.solver = new sudokuSolver();
+		
+	JFrame frame = new JFrame("Sudokulösare");
+	JPanel sudokuPanel = new JPanel(new GridLayout(9, 9));
+	JButton solveButton= new JButton("Solve");
+	JButton clearButton= new JButton("Clear");
+	
+	 sudokuPanel.add(solveButton);
+     sudokuPanel.add(clearButton);
+
+     frame.add(sudokuPanel, BorderLayout.CENTER);
+     frame.add(solveButton, BorderLayout.SOUTH);
+     frame.add(clearButton, BorderLayout.SOUTH);
+
+     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     frame.setSize(500, 500);
+     frame.setVisible(true);
+ 	frame.pack();
+ 	
+ 	
+     for (int i = 0; i < 9; i++) {
+         for (int j = 0; j < 9; j++) {
+             int value = 5;
+             JTextField textField = new JTextField(" "+ value );
+             sudokuPanel.add(textField);
+         }
+     }
+  
+     }
+	   public static void main(String[] args) {
+	         // Skapa en instans av SudokuDisplay när programmet körs
+	         new sudokuDisplay();
+	}
+
+}
