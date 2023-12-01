@@ -1,0 +1,111 @@
+package sudoku;
+
+import java.io.*;
+import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.*;
+
+public class SudokuDisplay {
+	public static void main(String[] args) {
+        // Skapa en instans av SudokuDisplay när programmet körs
+        new SudokuDisplay();
+	}
+
+	private Sudoku solver;
+
+	public SudokuDisplay() {
+	
+		this.solver = new Sudoku();
+	
+		JFrame frame = new JFrame("Sudokulösare");
+		JPanel sudokuPanel = new JPanel(new GridLayout(9, 9));
+		JButton solveButton= new JButton("Solve");
+		JButton clearButton= new JButton("Clear");
+		
+	
+		JPanel buttons = new JPanel(new FlowLayout());
+		
+		buttons.add(solveButton);
+		buttons.add(clearButton);
+		
+		frame.add(sudokuPanel, BorderLayout.CENTER);
+		frame.add(buttons, BorderLayout.SOUTH);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JTextField[][] tFs = new JTextField[9][9];
+		
+		for (int i = 0; i < 9; i++) {
+		    for (int j = 0; j < 9; j++) {
+		        JTextField textField = new JTextField();
+		        
+		        int subSquare = (i / 3 + j / 3) % 2;
+		        if (subSquare == 0) {
+		            textField.setBackground(Color.GRAY);
+		        } else {
+		            textField.setBackground(Color.WHITE);
+		        }
+		        textField.setOpaque(true);
+		        tFs[i][j] = textField;
+		        sudokuPanel.add(textField);
+		    }
+		}
+		final int[][] toSolve = new int[9][9];
+		
+		clearButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < 9; i++) {
+				    for (int j = 0; j < 9; j++) {
+				        tFs[i][j].setText("");
+				    }
+				}
+			}
+		});
+		
+		solveButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				for (int i = 0; i <9 ; i++) {
+					for (int j = 0; j < 9; j++) {
+						try {
+							if(tFs[i][j] == null) {
+								toSolve[i][j] = 0;
+							}
+							else {
+								toSolve[i][j] = Integer.parseInt(tFs[i][j].getText());
+							}
+						}
+						catch(NumberFormatException f){
+							System.out.println("YOU BAKA YOU DIDN'T input a number");
+							
+						}
+					}
+				}
+			}
+		});
+		int[][] solved = new int[9][9];
+		solver.setBoard(toSolve);
+		if(solver.solve()) {
+			System.out.println("Sudoku is solvalable here is solulu");
+			solved = solver.getBoard();
+			
+			for (int i = 0; i < 9; i++) {
+			    for (int j = 0; j < 9; j++) {
+			        tFs[i][j].setText(String.valueOf(solved[i][j]));
+			    }
+			}
+		}
+		else {
+			System.out.println("Stupid baka you made unsolvable sudoku, try again");
+		}
+		
+		
+		frame.pack();
+		frame.setVisible(true);
+	}
+}
