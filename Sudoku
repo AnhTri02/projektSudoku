@@ -1,42 +1,38 @@
-package sukodu;
+package sudoku;
 
-public class sudokuSolver implements sudokuInterface {
-
+public class Sudoku implements SudokuSolver {
 	private int[][] sudoku;
 	private static final int start = 0;
-
-	public sudokuSolver() {
-		this.sudoku = new int[9][9];
+	
+	public Sudoku() {
+		sudoku = new int[9][9];
 	}
-
+	
 	@Override
-	public void setBoard(int[ ][ ] board) {
-		this.sudoku = board;
+	public void setBoard(int[][] board) {
+		sudoku = board;
+	}
+	
+	@Override
+	public int[][] getBoard(){
+		return sudoku;
+	}
+	
+	public boolean solve() {
 		
+		return false;
 	}
-	@Override
-	public int[][] getBoard() {
-		
-		return null;
-	}
-	@Override
-	public boolean legal(int row, int col, int number) {
+	
+	public boolean legal(int row, int col, int nbr) {
 		// om det FINNS ett nummer i raden, kolumnen och boxen, returnera false
-		if ((checkRow(row, number) || checkCol(col, number) || checkBox(row, col, number))) {
+		if ((checkRow(row, nbr) || checkCol(col, nbr) || checkBox(row, col, nbr))) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	@Override
-	public boolean solve() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
-	
-	
-//hjälpmetod för att checka radnummer 
+	//hjälpmetod för att checka radnummer 
 	private boolean checkRow(int row, int number) {
 		for (int i = 0; i < 9; i++) {
 			// om numret redan finns i raden, returnera true, annars false
@@ -74,6 +70,4 @@ public class sudokuSolver implements sudokuInterface {
 		}
 		return false;
 	}
-
-
 }
