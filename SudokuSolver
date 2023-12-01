@@ -1,6 +1,6 @@
-package sukodu;
+package sudoku;
 
-public interface sudokuInterface{
+public interface SudokuSolver{
     
     // Work in progress
 
