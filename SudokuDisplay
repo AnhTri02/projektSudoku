@@ -11,10 +11,11 @@ import java.math.*;
 public class SudokuDisplay {
 	public static void main(String[] args) {
         // Skapa en instans av SudokuDisplay när programmet körs
-        new SudokuDisplay();
+		SwingUtilities.invokeLater(() -> new SudokuDisplay());
 	}
 
 	private Sudoku solver;
+	private JTextField[][] tFs;
 
 	public SudokuDisplay() {
 	
@@ -36,7 +37,7 @@ public class SudokuDisplay {
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JTextField[][] tFs = new JTextField[9][9];
+		tFs = new JTextField[9][9];
 		
 		for (int i = 0; i < 9; i++) {
 		    for (int j = 0; j < 9; j++) {
@@ -53,7 +54,7 @@ public class SudokuDisplay {
 		        sudokuPanel.add(textField);
 		    }
 		}
-		final int[][] toSolve = new int[9][9];
+		int[][] toSolve = new int[9][9];
 		
 		clearButton.addActionListener(new ActionListener(){
 			@Override
@@ -73,7 +74,7 @@ public class SudokuDisplay {
 				for (int i = 0; i <9 ; i++) {
 					for (int j = 0; j < 9; j++) {
 						try {
-							if(tFs[i][j] == null) {
+							if(tFs[i][j].getText().equals("")) {
 								toSolve[i][j] = 0;
 							}
 							else {
@@ -86,8 +87,16 @@ public class SudokuDisplay {
 						}
 					}
 				}
+				solve(toSolve);
 			}
 		});
+		
+		
+		
+		frame.pack();
+		frame.setVisible(true);
+	}
+	private int[][] solve(int[][] toSolve){
 		int[][] solved = new int[9][9];
 		solver.setBoard(toSolve);
 		if(solver.solve()) {
@@ -103,9 +112,6 @@ public class SudokuDisplay {
 		else {
 			System.out.println("Stupid baka you made unsolvable sudoku, try again");
 		}
-		
-		
-		frame.pack();
-		frame.setVisible(true);
+		return solved;
 	}
 }
