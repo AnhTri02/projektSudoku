@@ -1,23 +1,20 @@
-package sudoku;
+package sukodu;
 
-import java.io.*;
-import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.*;
 
-public class SudokuDisplay {
+public class sudokuDisplay {
 	public static void main(String[] args) {
         // Skapa en instans av SudokuDisplay när programmet körs
-		SwingUtilities.invokeLater(() -> new SudokuDisplay());
+		SwingUtilities.invokeLater(() -> new sudokuDisplay());
 	}
 
 	private Sudoku solver;
 	private JTextField[][] tFs;
 
-	public SudokuDisplay() {
+	public sudokuDisplay() {
 	
 		this.solver = new Sudoku();
 	
@@ -83,7 +80,7 @@ public class SudokuDisplay {
 						}
 						catch(NumberFormatException f){
 							System.out.println("YOU BAKA YOU DIDN'T input a number");
-							
+									return;
 						}
 					}
 				}
@@ -91,8 +88,7 @@ public class SudokuDisplay {
 			}
 		});
 		
-		
-		
+
 		frame.pack();
 		frame.setVisible(true);
 	}
