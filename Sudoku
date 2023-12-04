@@ -1,6 +1,6 @@
-package sudoku;
+package sukodu;
 
-public class Sudoku implements SudokuSolver {
+public class Sudoku implements SudokuSolver{
 	private int[][] sudoku;
 	private static final int start = 0;
 	
@@ -20,23 +20,74 @@ public class Sudoku implements SudokuSolver {
 	
 	public boolean solve() {
 		
+		if(checkLegalBoard()) {
+				return recSolve();
+		}
 		return false;
 	}
+	
+	private boolean checkLegalBoard() {
+			for(int row = 0; row < 9; row++) {
+				for(int col = 0; col < 9; col++) {
+					
+					int temp = sudoku[row][col];
+					sudoku[row][col] = 0;
+					if(!legal(row,col, temp)) {
+							return false;
+					}
+					sudoku[row][col] = temp;
+				}
+			}
+			return true;
+	}
+	
+	public boolean recSolve() {
+		{
+		    for(int row=0;row<9;row++) {
+		        for(int col=0;col<9;col++) {
+		            if(sudoku[row][col]==start){
+		                for(int number=1; number<= 9; number++) {
+		                    if(legal(row, col, number)) {
+		                        sudoku[row][col] = number;
+		                        
+		                        if(solve()) {
+		                            return true;
+		                        }
+		                        else {
+		                            sudoku[row][col] = start;
+		                        }
+		                    }
+		                }
+		                return false;
+		            }
+		        }
+		    }
+		}
+		    return true;
+		
+		}
+	
+	
 	
 	public boolean legal(int row, int col, int nbr) {
 		// om det FINNS ett nummer i raden, kolumnen och boxen, returnera false
 		if ((checkRow(row, nbr) || checkCol(col, nbr) || checkBox(row, col, nbr))) {
 			return false;
 		} else {
+			
 			return true;
 		}
 	}
 	
 	//hjälpmetod för att checka radnummer 
 	private boolean checkRow(int row, int number) {
+		if(number == 0) {
+			return false;
+		}
 		for (int i = 0; i < 9; i++) {
+
 			// om numret redan finns i raden, returnera true, annars false
-			if (sudoku[row][i] == number) {
+			 if (sudoku[row][i] == number) {
 				return true;
 			}
 		}
@@ -45,9 +96,12 @@ public class Sudoku implements SudokuSolver {
 
 	// hjälpmetod för att checka kolumnnummer
 	private boolean checkCol(int col, int number) {
+		if(number == 0) {
+			return false;
+		}
 		for (int i = 0; i < 9; i++) {
-			// om siffran redan finns, returnera true
-			if (sudoku[i][col] == number) {
+
+			 if (sudoku[i][col] == number) {
 				return true;
 			}
 		}
@@ -56,6 +110,9 @@ public class Sudoku implements SudokuSolver {
 
 	// checka om numret ligger i 3x3 rutan
 	private boolean checkBox(int row, int col, int number) {
+		if(number == 0) {
+			return false;
+		}
 		// beräkna startpositionen för 3x3 box
 		int r = row - row % 3;
 		int c = col - col % 3;
