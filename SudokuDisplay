@@ -1,20 +1,20 @@
-package sukodu;
+package sudoku;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class sudokuDisplay {
+public class SudokuDisplay {
 	public static void main(String[] args) {
         // Skapa en instans av SudokuDisplay när programmet körs
-		SwingUtilities.invokeLater(() -> new sudokuDisplay());
+		SwingUtilities.invokeLater(() -> new SudokuDisplay());
 	}
 
 	private Sudoku solver;
 	private JTextField[][] tFs;
 
-	public sudokuDisplay() {
+	public SudokuDisplay() {
 	
 		this.solver = new Sudoku();
 	
@@ -75,11 +75,18 @@ public class sudokuDisplay {
 								toSolve[i][j] = 0;
 							}
 							else {
-								toSolve[i][j] = Integer.parseInt(tFs[i][j].getText());
+								int temp = Integer.parseInt(tFs[i][j].getText());
+								if (temp < 1 || temp > 9) {
+									throw new NumberFormatException();
+								}
+								else {
+									toSolve[i][j] = temp;
+								}
+								
 							}
 						}
 						catch(NumberFormatException f){
-							System.out.println("YOU BAKA YOU DIDN'T input a number");
+							System.out.println("YOU BAKA YOU DIDN'T input a valid number between 1-9");
 									return;
 						}
 					}
