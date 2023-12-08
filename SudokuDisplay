@@ -125,7 +125,7 @@ public class SudokuDisplay {
 	 * @param toSolve a int matrix that will be tried to be solved.
 	 * @return 
 	 */
-	private int[][] solve(int[][] toSolve){
+	private void solve(int[][] toSolve){
 		int[][] solved = new int[9][9];
 		solver.setBoard(toSolve);
 		if(solver.solve()) {
