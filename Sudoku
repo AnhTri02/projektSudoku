@@ -3,7 +3,10 @@ package sukodu;
 public class Sudoku implements SudokuSolver{
 	private int[][] sudoku;
 	private static final int start = 0;
-	
+
+	/**
+	 * Constructor of our Sudoku, creates a 9x9 int matrix.
+	 */
 	public Sudoku() {
 		sudoku = new int[9][9];
 	}
@@ -17,7 +20,11 @@ public class Sudoku implements SudokuSolver{
 	public int[][] getBoard(){
 		return sudoku;
 	}
-	
+
+	/**
+	 * Method that checks if the current board would be legal or not
+	 * @return Returns true if the board is solvable, else return false.
+	 */
 	public boolean solve() {
 		
 		if(checkLegalBoard()) {
@@ -44,14 +51,18 @@ public class Sudoku implements SudokuSolver{
 			}
 		}
 	}
-	
+
+	/**
+	 * Method that checks if the board inputed is capable of being recursivly solved with backtracking
+	 * @return returns true if the board is a legal board that is inputed
+	 */
 	private boolean checkLegalBoard() {
 			for(int row = 0; row < 9; row++) {
 				for(int col = 0; col < 9; col++) {
 					
 					int temp = sudoku[row][col];
 					sudoku[row][col] = 0;
-					if(!legal(row,col, temp)) {
+					if(!isLegal(row,col, temp)) {
 							return false;
 					}
 					sudoku[row][col] = temp;
@@ -60,16 +71,20 @@ public class Sudoku implements SudokuSolver{
 			return true;
 	}
 	
-	public boolean recSolve() {
+	/**
+	 * The Recursive solving method with backtracking
+	 * @return true if the a grid place in the matrix can be a solution or the whole board is solved, returns false if the sudoku is unsolvable
+	 */
+	private boolean recSolve() {
 		{
 		    for(int row=0;row<9;row++) {
 		        for(int col=0;col<9;col++) {
 		            if(sudoku[row][col]==start){
 		                for(int number=1; number<= 9; number++) {
-		                    if(legal(row, col, number)) {
+		                    if(isLegal(row, col, number)) {
 		                        sudoku[row][col] = number;
 		                        
-		                        if(solve()) {
+		                        if(recSolve()) {
 		                            return true;
 		                        }
 		                        else {
@@ -87,8 +102,8 @@ public class Sudoku implements SudokuSolver{
 		}
 	
 	
-	
-	public boolean legal(int row, int col, int nbr) {
+	@Override
+	public boolean isLegal(int row, int col, int nbr) {
 		// om det FINNS ett nummer i raden, kolumnen och boxen, returnera false
 		if ((checkRow(row, nbr) || checkCol(col, nbr) || checkBox(row, col, nbr))) {
 			return false;
@@ -98,7 +113,12 @@ public class Sudoku implements SudokuSolver{
 		}
 	}
 	
-	//hjälpmetod för att checka radnummer 
+	/**
+	 * Method to check if a number is a possible input in a row
+	 * @param row
+	 * @param number
+	 * @return returns true if the number is already in the row else false
+	 */
 	private boolean checkRow(int row, int number) {
 		if(number == 0) {
 			return false;
@@ -113,6 +133,12 @@ public class Sudoku implements SudokuSolver{
 		return false;
 	}
 
+	/**
+	 * Method to check if a number is a possible input in a column
+	 * @param col
+	 * @param number
+	 * @return returns true if the number is already in the column else false
+	 */
 	// hjälpmetod för att checka kolumnnummer
 	private boolean checkCol(int col, int number) {
 		if(number == 0) {
@@ -127,6 +153,14 @@ public class Sudoku implements SudokuSolver{
 		return false;
 	}
 
+
+	/**
+	 * Method to check if a number is possible input into the box 
+	 * @param row
+	 * @param col
+	 * @param number
+	 * @return returns true if the number is already in the box else false
+	 */
 	// checka om numret ligger i 3x3 rutan
 	private boolean checkBox(int row, int col, int number) {
 		if(number == 0) {
