@@ -5,20 +5,40 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/**
+ * sudokuTester is the main class for our test cases.
+ *
+ * Here we test all the methods that have been implemented in the Sudoku class
+ * {@link https://fileadmin.cs.lth.se/cs/Education/EDAA30/2023/F10kod/SudokuSolver.java} 
+ *
+ * @author Hannibal Lind and Tri Pham
+ */
 public class sudokuTester {
-	Sudoku s;
-	int[][] board;
+	private Sudoku s;
+	private int[][] board;
+
+	/**
+	 * This is a method that is used before every test case making sure that we have a new
+	 * sudoku object to work with.
+	 */
 	@BeforeEach
 	void setUp() throws Exception {
 		s = new Sudoku();
 	}
 
+	/**
+	 * This is a method that is used after every test case making sure that the sudoku board is set to null.
+	 */
 	@AfterEach
 	void tearDown() throws Exception {
 		s = null;
 	}
 
+	/**
+	 * This method is about testing the method of setBoard and getBoard from the interface SudokuSolver
+	 * The trial method is done by first setting the board in our Sudoku object and then getting it back
+	 * We check that it the inputed board is the same as the one we get by looping over every place in the matrix
+	 */
 	@Test
 	void testSetGetBoard() {
 		int[][] matris ={
@@ -41,6 +61,12 @@ public class sudokuTester {
 		}
 		//assertEquals(matris, s.getBoard());
 	}
+
+	/**
+	 * This method is about testing the method of Solve from the interface SudokuSolver
+	 * Here we send in a matrix to be solved and then use the get method to retrive the solved sudoku board.
+	 * We check that it the inputed board has been solved by looping over every place in the board with a correct matrix of the solution.
+	 */
 	@Test
 	void testSolve() {
 		int[][] matris ={
@@ -75,6 +101,13 @@ public class sudokuTester {
 		}
 		//assertEquals(matris, s.getBoard());
 	}
+
+	/**
+	 * This method is about testing the method of Set, Get and clear from the interface SudokuSolver
+	 * The trial method is done by first setting a number into a position on the sudoku board
+	 * Then we assert that it was placed correctly by using the get method.
+	 * Then we use the clear method to clear the board and check if the board got cleared.
+	 */
 	@Test 
 	void testGetSetClear(){
 		s.set(0,0,5);
