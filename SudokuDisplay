@@ -1,4 +1,4 @@
-package sudoku;
+package sukodu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -123,8 +123,9 @@ public class SudokuDisplay {
 	 * Method for getting a matrix that we will be checked if it is solvable. 
 	 * If solvable output it in the grid of Jtextfields on the gui else tell the user that the sudoku they inputed isn't solvable.
 	 * @param toSolve a int matrix that will be tried to be solved.
+	 * @return 
 	 */
-	private void solve(int[][] toSolve){
+	private int[][] solve(int[][] toSolve){
 		int[][] solved = new int[9][9];
 		solver.setBoard(toSolve);
 		if(solver.solve()) {
