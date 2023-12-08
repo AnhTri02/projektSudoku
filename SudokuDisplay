@@ -141,6 +141,5 @@ public class SudokuDisplay {
 		else {
 			System.out.println("Stupid baka you made unsolvable sudoku, try again");
 		}
-		return solved;
 	}
 }
