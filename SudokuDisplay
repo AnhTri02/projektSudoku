@@ -6,6 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SudokuDisplay {
+
+	/**
+	 * Main method of our program that creates a SwingUtilites object of our method that creates a gui for the sudoku
+	 * @param args, a string vector
+	 */
 	public static void main(String[] args) {
         // Skapa en instans av SudokuDisplay när programmet körs
 		SwingUtilities.invokeLater(() -> new SudokuDisplay());
@@ -14,6 +19,10 @@ public class SudokuDisplay {
 	private Sudoku solver;
 	private JTextField[][] tFs;
 
+	/**
+	 * Method for creating a gui for the sudoku and also showcasing the solution to the user
+	 * It does so by creating a JFrame where we put buttons for solve and clearing the grid of JTextfields that is used to input the numbers and display the solution
+	 */
 	public SudokuDisplay() {
 	
 		this.solver = new Sudoku();
@@ -54,6 +63,10 @@ public class SudokuDisplay {
 		int[][] toSolve = new int[9][9];
 		
 		clearButton.addActionListener(new ActionListener(){
+			/**
+			 * Method for what the clear button will do
+			 * @param e ActionEvent from the clear button.
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i < 9; i++) {
@@ -61,10 +74,16 @@ public class SudokuDisplay {
 				        tFs[i][j].setText("");
 				    }
 				}
+				solver.clear();
 			}
 		});
 		
 		solveButton.addActionListener(new ActionListener(){
+			/**
+			 * Method for getting the values inputed in the Jtextfields and sending it them to the solver
+			 * after that call for our solve method.
+			 * @param e an ActionEvent that comes from a button click on the solve button.
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -99,7 +118,13 @@ public class SudokuDisplay {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	private int[][] solve(int[][] toSolve){
+	
+	/**
+	 * Method for getting a matrix that we will be checked if it is solvable. 
+	 * If solvable output it in the grid of Jtextfields on the gui else tell the user that the sudoku they inputed isn't solvable.
+	 * @param toSolve a int matrix that will be tried to be solved.
+	 */
+	private void solve(int[][] toSolve){
 		int[][] solved = new int[9][9];
 		solver.setBoard(toSolve);
 		if(solver.solve()) {
