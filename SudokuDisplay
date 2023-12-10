@@ -1,10 +1,16 @@
-package sukodu;
+package sudoku;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * sudokuDisplay is the main program for the gui
+ *
+ * @author Hannibal Lind and Tri Pham
+ */
 public class SudokuDisplay {
 
 	/**
