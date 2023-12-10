@@ -3,9 +3,6 @@ package sudoku;
 /**
  * Sudoku is our implementation of the interface SodokuSolver
  *
- * Here we test all the methods that have been implemented in the Sudoku class
- * {@link https://fileadmin.cs.lth.se/cs/Education/EDAA30/2023/F10kod/SudokuSolver.java} 
- *
  * @author Hannibal Lind and Tri Pham
  */
 
